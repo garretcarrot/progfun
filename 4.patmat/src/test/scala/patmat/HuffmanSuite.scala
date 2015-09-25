@@ -14,6 +14,14 @@ class HuffmanSuite extends FunSuite {
     val t2 = Fork(Fork(Leaf('a',2), Leaf('b',3), List('a','b'), 5), Leaf('d',4), List('a','b','d'), 9)
   }
 
+  trait CodeTables {
+    val table1: CodeTable = List(
+      'a' -> List(0),
+      'b' -> List(1, 0),
+      'c' -> List(-1)
+    )
+  }
+
   test("weight of a larger tree") {
     new TestTrees {
       assert(weight(t1) === 5)
@@ -42,6 +50,20 @@ class HuffmanSuite extends FunSuite {
   test("decode and encode a very short text should be identity") {
     new TestTrees {
       assert(decode(t1, encode(t1)("ab".toList)) === "ab".toList)
+    }
+  }
+
+  test("look up a bit list indexed by character") {
+    new CodeTables {
+      assert(codeBits(table1)('a') === List(0))
+      assert(codeBits(table1)('b') === List(1, 0))
+      assert(codeBits(table1)('c') === List(-1))
+    }
+  }
+
+  test("quickly decode and encode a very short text should be identity") {
+    new TestTrees {
+      assert(decode(t1, quickEncode(t1)("ab".toList)) === "ab".toList)
     }
   }
 }

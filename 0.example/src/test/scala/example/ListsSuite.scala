@@ -47,7 +47,7 @@ class ListsSuite extends FunSuite {
    * This allows tests to be written in a more readable manner:
    */
   test("one plus one is three?") {
-    assert(1 + 1 == 3) // This assertion fails! Go ahead and fix it.
+    assert(1 + 1 != 3)
   }
 
 
@@ -72,7 +72,7 @@ class ListsSuite extends FunSuite {
    * We recommend to always use the `===` equality operator when writing tests.
    */
   test("details why one plus one is not three") {
-    assert(1 + 1 === 3) // Fix me, please!
+    assert(1 + 1 + 1 === 3)
   }
 
 
@@ -120,5 +120,62 @@ class ListsSuite extends FunSuite {
   
   test("max of a few numbers") {
     assert(max(List(3, 7, 2)) === 7)
+  }
+
+  /**
+   * Negative numbers
+   */
+  test("sum of negative numbers") {
+    assert(sum(List(-1, -2, 0, 1)) === -2)
+  }
+
+  test("max of negative numbers") {
+    assert(max(List(-3, -7, -2)) === -2)
+  }
+
+  /**
+   * Zeros
+   */
+  test("sum of zeros") {
+    assert(sum(List(0, 0, 0)) === 0)
+  }
+
+  test("max of zeros") {
+    assert(max(List(0, 0, 0)) === 0)
+  }
+
+  /**
+   * Empty lists
+   */
+  test("sum of empty list") {
+    assert(sum(Nil) === 0)
+  }
+
+  test("max of empty list") {
+    intercept[NoSuchElementException] {
+      max(Nil)
+    }
+  }
+
+  /**
+   * Singleton lists
+   */
+  test("sum of single element list") {
+    assert(sum(List(21)) === 21)
+  }
+
+  test("max of single element list") {
+    assert(max(List(21)) === 21)
+  }
+
+  /**
+   * Repeated elements
+   */
+  test("sum of repeated elements") {
+    assert(sum(List(1, 1, 1, 3)) === 6)
+  }
+
+  test("max of repeated elements") {
+    assert(max(List(1, 4, 4, 4)) === 4)
   }
 }
